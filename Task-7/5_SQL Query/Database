@@ -1,0 +1,117 @@
+CREATE DATABASE global_garner;
+USE global_garner;
+
+1---Create Table:-
+
+CREATE TABLE employees (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(20) NOT NULL,
+    email VARCHAR(50) UNIQUE NOT NULL,
+    mobile VARCHAR(10) UNIQUE NOT NULL,
+    address VARCHAR(100),
+    branch_id INT,
+    city_id INT,
+    state_id INT,
+    country_id INT,
+    active BOOLEAN
+);
+
+CREATE TABLE branches (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(20) NOT NULL,
+    city_id INT,
+    state_id INT,
+    country_id INT
+);
+
+CREATE TABLE cities (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(20) NOT NULL,
+    state_id INT,
+    country_id INT
+);
+
+CREATE TABLE states (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(20) NOT NULL,
+    country_id INT
+);
+
+CREATE TABLE countries (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(20) NOT NULL
+);
+
+
+2---INSERT DATA:-
+
+INSERT INTO employees (name, email, mobile, address, branch_id, city_id, state_id, country_id, active)
+VALUES
+    ('vraj', 'vraj@gmail.com', '1234567890', 'vasna', 1, 1, 1, 1, true),
+    ('ronak', 'ronak@gmail.com', '0987654321', 'jivraj', 2, 2, 2, 2, true),
+    ('ashwin', 'ashwin@gmail.com', '5556667777', 'paldi', 3, 3, 3, 3, false);
+
+INSERT INTO branches (name, city_id, state_id, country_id)
+VALUES
+    ('Branch - 1', 1, 1, 1),
+    ('Branch - 2', 2, 2, 2),
+    ('Branch - 3', 3, 3, 3);
+
+INSERT INTO cities (name, state_id, country_id)
+VALUES
+    ('Ahmedabad', 1, 1),
+    ('Surat', 2, 2),
+    ('Rajkot', 3, 3);
+
+INSERT INTO states (name, country_id)
+VALUES
+    ('Gujrat', 1),
+    ('UP', 2),
+    ('Mumbai', 3);
+
+INSERT INTO countries (name)
+VALUES
+    ('India'),
+    ('Canada'),
+    ('USA');
+
+
+
+3--- Write individual queries to get employees by a specific
+(i) branch
+(ii) city
+(iii) state
+(iv) country
+
+(1)--->branch
+SELECT * FROM employees WHERE branch_id = 1; //branch-1
+
+(2)--->city
+SELECT * FROM employees WHERE city_id = 2; //surat
+
+(3)--->state
+SELECT * FROM employees WHERE state_id = 3; //mumbai
+
+(4)--->contry
+SELECT * FROM employees WHERE country_id = 1; //India
+
+
+4--->Write a query to get unique employees by their names
+SELECT DISTINCT name FROM employees WHERE active = true; //vraj,ronak
+
+
+5--->The queries in (3) & (4) must return only those employees whose 'active' status is true
+(1)--->branch
+SELECT * FROM employees WHERE branch_id = 1 AND active = true; //branch-1
+
+(2)--->city
+SELECT * FROM employees WHERE city_id = 2 AND active = true; //surat
+
+(3)--->state
+SELECT * FROM employees WHERE state_id = 3 AND active = true; //0
+
+(4)--->contry
+SELECT * FROM employees WHERE country_id = 1 AND active = true; //India
+
+(5)--->Uniqe employees
+SELECT DISTINCT name FROM employees WHERE active = true; //vraj,ronak
